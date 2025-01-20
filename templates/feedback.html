@@ -17,6 +17,7 @@
             </div>
             <div id="form" class="hidden">
                 <form id="reviewForm" action="/feedback" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div>
                         <label for="username">Имя:</label>
                         <input type="text" id="username" name="username" required><br><br>
