@@ -7,7 +7,7 @@ class Config:
     DEBUG = os.getenv('FLASK_DEBUG', True)
     UPLOAD_FOLDER = 'uploads/'
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
+    MAX_CONTENT_LENGTH = 15 * 1024 * 1024
     # Mail server settings (if using Flask-Mail)
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
