@@ -1,17 +1,24 @@
 from flask import Flask
-from app.routes import *
-from app.models import db
-
+from flask_sqlalchemy import SQLAlchemy
 from config import Config
+from app.routes import *
+
+# Initialize extensions
+db = SQLAlchemy()
+
 
 app = Flask(__name__)
-app.config.from_object(Config)
 
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['WTF_CSRF_ENABLED'] = True
+
+app.config.from_object(Config)
+app.config["SECRET_KEY"] = 'hui'
 
 db.init_app(app)
-with app.app_context():
-    db.create_all()
 
+init_routes(app, db)
 
 if __name__ == "__main__":
     app.run(debug=True)

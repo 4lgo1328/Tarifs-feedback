@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+</head>
+<body>
+    <h1>Submit Your Feedback</h1>
+    <form action="/feedback" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+    <div>
+        <label for="username">Username:</label>
+        <input id="username" name="username" type="text" required="">
+    </div>
+    <div>
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" name="feedback" required=""></textarea>
+    </div>
+    <div>
+        <label for="picture">Upload Picture:</label>
+        <input id="picture" name="picture" type="file">
+    </div>
+    <div>
+        <button type="submit">Upload</button>
+    </div>
+</form>
+</body>
+</html>
