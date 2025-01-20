@@ -25,5 +25,7 @@ def send_feedback(UID, user_name, photo, feedback): # TODO
 
 def parse_updates():
     @bot.callback_query_handler()
+    def callback():
+        pass
 
     bot.infinity_polling()

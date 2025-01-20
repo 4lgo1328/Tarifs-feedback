@@ -10,23 +10,26 @@ def init_routes(app, db):
     def upload():
         if request.method == "POST":
             form = FeedbackForm()
+            print(form.errors)
             if form.validate_on_submit():
                 user_name = form.username.data
                 feedback_text = form.feedback.data
                 picture_file = form.picture.data
 
                 filename = secure_filename(picture_file.filename)
+                print(2)
                 picture_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
                 picture_file.save(picture_path)
                 feedback_entry = Feedback(name=user_name, photo=filename, feedback=feedback_text)
                 db.session.add(feedback_entry)
+                print(3)
                 db.session.commit()
                 flash('Ваш отзыв отправлен на рассмотрение администраторам!')
                 return redirect(url_for('main'))
             else:
                 flash('Проверьте правильность ввода данных')
-
-        return render_template('feedback.html', form=form)
+            return render_template('feedback.html', form=form)
+        return render_template('feedback.html')
 
     @app.route('/')
     @app.route('/main/')
