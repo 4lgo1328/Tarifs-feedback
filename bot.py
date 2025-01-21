@@ -48,7 +48,8 @@ def parse_updates():
                         try:
                             conn = sql.connect('instance/approved.db')
                             cursor = conn.cursor()
-                            cursor.execute("INSERT INTO approved_feedbacks (name, feedback) VALUES (?, ?)", (name, feedback))
+                            cursor.execute("INSERT INTO approved_feedbacks (name, feedback) VALUES (?, ?)",
+                                           (name, feedback))
                             conn.commit()
                             conn.close()
 

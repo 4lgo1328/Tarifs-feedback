@@ -42,20 +42,21 @@
             </div>
 
             <div id="reviews" class="hidden">
+                <h1 class="feedback_title">Отзывы</h1>
+                <br>
                 {% if reviews %}
                     <ul>
                         {% for review in reviews %}
-                            <li>
-                                <strong>{{ review.name }}</strong>:<br>
-                                <p>{{ review.review }}</p>
+                            <li class='bullet'>
+                                <strong class="review_name">{{ review[0] }}</strong>:<br>
+                                <p class="review_text">{{ review[1] }}</p>
                             </li>
+                        <br>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>Пока отзывов нет. Заходите позже!</p>
+                    <p><h2 class="noreviews">Пока отзывов нет. Заходите позже!</h2></p>
                 {% endif %}
-                <h2 style="color: white; background-color: #d9d9d91a;">Отзывы</h2>
-                <div id="approvedReviews"></div>
             </div>
         </div>
     </div>

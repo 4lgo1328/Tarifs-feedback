@@ -22,8 +22,3 @@ def run_app():
 
     app.run(debug=True, use_reloader=False)
 
-
-# if __name__ == "__main__":
-#     app_thread, bot_thread = Thread(target=run_app), Thread(target=parse_updates)
-#     app_thread.start(), bot_thread.start()
-#     app_thread.join(), bot_thread.join()

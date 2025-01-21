@@ -6,7 +6,7 @@ def allowed_file(filename):
 
 
 def get_all_reviews():
-    conn = sql.connect('../instance/approved.db')
+    conn = sql.connect('instance/approved.db')
     cursor = conn.cursor()
     query = "SELECT * FROM approved_feedbacks LIMIT 50"
     reviews = []
@@ -15,3 +15,4 @@ def get_all_reviews():
     conn.close()
     for obj in res:
         reviews.append([obj[0], obj[1]])
+    return reviews

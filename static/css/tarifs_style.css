@@ -44,6 +44,8 @@ h1 {
 .not-title {
     width: 100%;
     font-family: "Montserrat", sans-serif;
+    border-radius: 0;
+
 }
 
 .button {
@@ -76,16 +78,16 @@ h1 {
 
 #form {
     padding-top: 10px;
-    padding-bottom: 100px;
+    padding-bottom: 10px;
     position: relative;
     background-color: #595b5b;
     text-align: center;
 }
 
 #reviews {
-    text-align: center;
+    text-align: left;
     padding-top: 10px;
-    padding-bottom: 100px;
+    padding-bottom: 10px;
     position: relative;
     background-color: #595b5b;
 }
@@ -137,4 +139,29 @@ label {
     cursor: pointer;
     background-color: #d9d9d92f;
     width: 700px;
+}
+
+.noreviews{
+    color: white;
+}
+
+.review_name{
+    color: white;
+    font-size: x-large;
+}
+
+.review_text{
+    color: white;
+    font-size: large;
+}
+.bullet {
+    color: white;
+    font-size: large;
+}
+.feedback_title {
+    color: white;
+    font-size: 80px;
+    background-color: #d9d9d91a;
+    padding-bottom: 25px;
+    padding-top: 25px;
 }
