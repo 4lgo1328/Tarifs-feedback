@@ -31,10 +31,8 @@ def send_feedback(UID, user_name, photo, feedback):  # TODO
 
 
 def parse_updates():
-    print('bot started')
     @bot.callback_query_handler(func=lambda call: 'accept' in call.data or 'decline' in call.data)
     def callback(call):
-        print('callback found')
         if not int(call.message.chat.id) == int(config.ADMIN_ID):
             return
         UID = call.data.split('_')[1]
