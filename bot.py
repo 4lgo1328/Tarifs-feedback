@@ -2,6 +2,9 @@ import telebot
 import config
 from telebot import types
 import sqlite3 as sql
+from app.models import db, Feedback
+from application import app
+
 
 bot = telebot.TeleBot(token='6646805556:AAFx2bCt9cXPx_TTWEoPTqotyxsO4Dakgh0')
 
@@ -36,22 +39,24 @@ def parse_updates():
             return
         UID = call.data.split('_')[1]
         if 'accept' in call.data:
-            conn = sql.connect('instance/site.db')
-            cursor = conn.cursor()
-            print('UID: ', UID)
-            cursor.execute('SELECT (name, feedback) FROM feedback WHERE id = ?', (UID,))
-            found = cursor.fetchone()
-            name, feedback = found[0], found[1]
-            conn.close()
+            with app.app_context():
+                with db.session.begin():
+                    feedback_obj = db.session.get(Feedback, UID)
+                    if feedback_obj:
+                        name = feedback_obj.name
+                        feedback = feedback_obj.feedback
+                        try:
+                            conn = sql.connect('instance/approved.db')
+                            cursor = conn.cursor()
+                            cursor.execute("INSERT INTO approved_feedbacks (name, feedback) VALUES (?, ?)", (name, feedback))
+                            conn.commit()
+                            conn.close()
 
-            conn = sql.connect('instance/approved.db')
-            cursor = conn.cursor()
-            cursor.execute("INSERT INTO approved_feedbacks (name, feedback) VALUES (?, ?)", (name, feedback))
-            conn.commit()
-            conn.close()
-        conn = sql.connect('instance/site.db')
-        query = "DELETE FROM feedback WHERE id = ?"
-        conn.execute(query, UID)
-        conn.close()
+                            db.session.delete(feedback_obj)
+                        except:
+                            print('connection to approved failed')
+                    else:
+                        print('feedback object have not found')
+
 
     bot.infinity_polling()
