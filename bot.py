@@ -5,8 +5,7 @@ import sqlite3 as sql
 from app.models import db, Feedback
 from application import app
 
-
-bot = telebot.TeleBot(token='6646805556:AAFx2bCt9cXPx_TTWEoPTqotyxsO4Dakgh0')
+bot = telebot.TeleBot(token=config.TOKEN)
 
 
 def get_markup(UID):
@@ -53,9 +52,8 @@ def parse_updates():
 
                             db.session.delete(feedback_obj)
                         except:
-                            print('connection to approved failed')
+                            print('connection to approved.db failed')
                     else:
                         print('feedback object have not found')
-
 
     bot.infinity_polling()
