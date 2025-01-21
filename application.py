@@ -4,6 +4,8 @@ from config import Config
 from app.routes import *
 from flask_wtf.csrf import CSRFProtect
 from app.models import db
+from bot import parse_updates
+from threading import Thread
 
 
 def run_app():
@@ -19,5 +21,10 @@ def run_app():
 
     init_routes(app, db)
 
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
 
+
+if __name__ == "__main__":
+    app_thread, bot_thread = Thread(target=run_app), Thread(target=parse_updates)
+    app_thread.start(), bot_thread.start()
+    app_thread.join(), bot_thread.join()

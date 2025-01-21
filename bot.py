@@ -28,7 +28,8 @@ def send_feedback(UID, user_name, photo, feedback):  # TODO
 
 
 def parse_updates():
-    @bot.callback_query_handler(func=lambda call: True)
+    print('bot started')
+    @bot.callback_query_handler(func=lambda call: 'accept' in call.data or 'decline' in call.data)
     def callback(call):
         print('callback found')
         if not int(call.message.chat.id) == int(config.ADMIN_ID):
@@ -37,7 +38,8 @@ def parse_updates():
         if 'accept' in call.data:
             conn = sql.connect('instance/site.db')
             cursor = conn.cursor()
-            cursor.execute('SELECT (name, feedback) FROM feedback WHERE id = ?', UID)
+            print('UID: ', UID)
+            cursor.execute('SELECT (name, feedback) FROM feedback WHERE id = ?', (UID,))
             found = cursor.fetchone()
             name, feedback = found[0], found[1]
             conn.close()
