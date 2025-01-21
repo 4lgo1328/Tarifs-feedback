@@ -15,4 +15,4 @@ def get_all_reviews():
     conn.close()
     for obj in res:
         reviews.append([obj[0], obj[1]])
-    return reviews
+    return reviews[::-1]
