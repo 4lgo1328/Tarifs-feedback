@@ -6,10 +6,15 @@
     <title>Отзывы о покупке</title>
     <link rel="stylesheet" type="text/css" href="tarifs_style.css">
 	<link rel="stylesheet" href="bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="behindbg"></div>
+    <div class="bg"></div>
     <div class="container">
-        <h1 style="color: white;">Отзывы о покупке</h1>
+        <h1 style="color: white; font-family: 'Montserrat', sans-serif;">Отзывы о покупке</h1>
         <div class="not-title">
             <div class="active-buttons">
                 <div class="button" onclick="showForm()">Написать отзыв</div>
@@ -23,6 +28,9 @@
                     </div>
                     <div>
                         <label for="picture">Скриншот тарифа:</label>
+                        <div>
+                            <label for="picture" class="decoBtn">Загрузить фото</label>
+                        </div>
                         <input type="file" id="picture" name="picture" required><br><br>
                     </div>
                     <div>

@@ -1,12 +1,25 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat", sans-serif;
     height: 100vh;
+    
+}
+
+.behindbg, .bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
     background-image: url(imgs/BGimg.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
     background-size: cover;
 }
+
+.bg {
+    filter: blur(5px);
+}
+
 .container {
     max-width: 800px;
     background-color: rgb(59, 59, 59);
@@ -30,6 +43,7 @@ h1 {
 
 .not-title {
     width: 100%;
+    font-family: "Montserrat", sans-serif;
 }
 
 .button {
@@ -83,6 +97,7 @@ label {
 #username, #feedback {
     border-radius: 5px;
     background-color: #d9d9d932;
+    color: white;
 }
 
 #submit {
@@ -95,6 +110,11 @@ label {
     font-size: 32px;
     border-radius: 15px;
     color: white;
+    transition: 0.25s all;
+}
+
+#submit:hover {
+    background-color: #d9d9d9af;
 }
 
 #picture {
@@ -102,6 +122,19 @@ label {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
-    
+    visibility: hidden;
+}
+
+.decoBtn {
+    transition: 0.25s all;
+    margin-top: 40px;
+    width: 300px;
+    font-size: 28px;
+    text-decoration: underline;
+}
+
+.decoBtn:hover{
+    cursor: pointer;
+    background-color: #d9d9d92f;
+    width: 700px;
 }
