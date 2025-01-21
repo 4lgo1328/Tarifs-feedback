@@ -1,30 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
+    <title>Отзывы о покупке</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/tarifs_style.css">
+	<link rel="stylesheet" href="../static/css/bootstrap.css">
 </head>
 <body>
-    <h1>Submit Your Feedback</h1>
-    <form action="/feedback" method="POST" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
+    <div class="container">
+        <h1 style="color: white;">Отзывы о покупке</h1>
+        <div class="not-title">
+            <div class="active-buttons">
+                <div class="button" onclick="showForm()">Написать отзыв</div>
+                <div class="button" onclick="showReviews()">Посмотреть отзывы</div>
+            </div>
+            <div id="form" class="hidden">
+                <form id="reviewForm" action="/feedback" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div>
+                        <label for="username">Имя:</label>
+                        <input type="text" id="username" name="username" required><br><br>
+                    </div>
+                    <div>
+                        <label for="picture">Скриншот тарифа:</label>
+                        <input type="file" id="picture" name="picture" required><br><br>
+                    </div>
+                    <div>
+                        <label for="feedback">Комментарии:</label><br>
+                        <textarea style="font-size: 19px;" id="feedback" name="feedback" required></textarea><br><br>
+                    </div>
+                    <button type="submit" id="submit">Отправить</button>
+                </form>
+            </div>
 
-    <div>
-        <label for="username">Username:</label>
-        <input id="username" name="username" type="text" required="">
+            <div id="reviews" class="hidden">
+                {% if reviews %}
+                    <ul>
+                        {% for review in reviews %}
+                            <li>
+                                <strong>{{ review.name }}</strong>:<br>
+                                <p>{{ review.review }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Пока отзывов нет. Заходите позже!</p>
+                {% endif %}
+                <h2 style="color: white; background-color: #d9d9d91a;">Отзывы</h2>
+                <div id="approvedReviews"></div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="feedback">Feedback:</label>
-        <textarea id="feedback" name="feedback" required=""></textarea>
-    </div>
-    <div>
-        <label for="picture">Upload Picture:</label>
-        <input id="picture" name="picture" type="file">
-    </div>
-    <div>
-        <button type="submit">Upload</button>
-    </div>
-</form>
+
+    <script>
+        function showForm() {
+            document.getElementById('form').classList.remove('hidden');
+            document.getElementById('reviews').classList.add('hidden');
+        }
+
+        function showReviews() {
+            document.getElementById('form').classList.add('hidden');
+            document.getElementById('reviews').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>

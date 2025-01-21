@@ -2,8 +2,9 @@ import os
 
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY', 'SECRET_KEY')
-
+    WTF_CSRF_ENABLED = True
+    SECRET_KEY = os.urandom(24)
+    SESSION_TYPE = 'filesystem'
     DEBUG = os.getenv('FLASK_DEBUG', True)
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
