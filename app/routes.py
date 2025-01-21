@@ -5,6 +5,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app.forms import FeedbackForm
 from werkzeug.utils import secure_filename
 from app.models import Feedback
+import app.utils
 import bot
 import sqlite3 as sql
 
@@ -27,30 +28,23 @@ def init_routes(app, db):
                 feedback_entry = Feedback(name=user_name, photo=filename, feedback=feedback_text)
                 db.session.add(feedback_entry)
                 db.session.commit()
-                time.sleep(2)
-                conn = sql.connect('instance/site.db')
-                cursor = conn.cursor()
-                try:
-                    query = f'SELECT * FROM feedback WHERE name = {user_name} AND feedback = {feedback_text}'
-                    cursor.execute(query)
-                    found = cursor.fetchone()
-                    UID = found[0]
-                    conn.commit()
-                    conn.close()
 
+                found_feedback = Feedback.query.filter_by(name=user_name, feedback=feedback_text).first()
+                if found_feedback:
+                    UID = found_feedback.id
                     bot.send_feedback(UID, user_name, picture_path, feedback_text)
-                except:
-                    pass
+                else:
+                    print('No matching row found')
 
                 flash('Ваш отзыв отправлен на рассмотрение администраторам!')
-                return redirect(url_for('main'))
+                return redirect('/feedback')
             else:
                 print(form.errors)
                 flash('Проверьте правильность ввода данных')
             return render_template('feedback.html', form=form)
         return render_template('feedback.html')
 
-    @app.route('/')
-    @app.route('/main/')
-    def main():
-        return render_template('index.html')
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return redirect('/feedback')

@@ -3,31 +3,34 @@ import config
 from telebot import types
 import sqlite3 as sql
 
-bot = telebot.TeleBot(token=config.TOKEN)
+bot = telebot.TeleBot(token='6646805556:AAFx2bCt9cXPx_TTWEoPTqotyxsO4Dakgh0')
 
 
-def get_markup(UID, name):
-    mk = types.InlineKeyboardMarkup(
-        types.InlineKeyboardButton(text='✔️', callback_data=f'accept_{UID}_{name}'),
-        types.InlineKeyboardButton(text='❌', callback_data=f'decline_{UID}_{name}')
+def get_markup(UID):
+    mk = types.InlineKeyboardMarkup(row_width=3)
+    mk.add(
+        types.InlineKeyboardButton('✔️', callback_data=f'accept_{UID}'),
+        types.InlineKeyboardButton('❌', callback_data=f'decline_{UID}'),
     )
     return mk
 
 
 def send_feedback(UID, user_name, photo, feedback):  # TODO
-    print(photo)
-    bot.send_photo(config.ADMIN_ID,
-                    photo=open(f'uploads/{photo}'),
-                    caption=f'Новый отзыв!\n'
+    photo_path = photo.split('\\')[-1]
+    bot.send_photo(chat_id=str(config.ADMIN_ID),
+                   photo=open(f'uploads/{photo_path}', 'rb'))
+    bot.send_message(chat_id=str(config.ADMIN_ID),
+                     text=f'Новый отзыв!\n'
                           f'<u>Имя:</u> {user_name}\n'
-                          f'<u>Отзыв:</u> {feedback}'
-                          f'<u>Скриншот покупки</u> {photo}',
-                    parse_mode='HTML',
-                    reply_markup=get_markup(UID))
+                          f'<u>Отзыв:</u> {feedback}\n',
+                     parse_mode='HTML',
+                     reply_markup=get_markup(UID))
+
 
 def parse_updates():
     @bot.callback_query_handler(func=lambda call: True)
     def callback(call):
+        print('callback found')
         if not int(call.message.chat.id) == int(config.ADMIN_ID):
             return
         UID = call.data.split('_')[1]
