@@ -21,14 +21,15 @@
                 <div class="button" onclick="showReviews()">Посмотреть отзывы</div>
             </div>
             <div id="form" class="hidden">
-
+                <p class="instr">Здесь вы можете оставить свой отзыв, он будет виден остальным пользователям</p>
                 <form id="reviewForm" action="/feedback" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div>
-                        <label for="username">Имя:</label>
+                        <label for="username">Ваше имя:</label>
                         <input type="text" id="username" name="username" required><br><br>
+                        <p id="warn">ваше имя будут видеть другие пользователи</p>
                     </div>
-                    <div>
+                    <div id="mainContent">
                         <label for="picture">Скриншот тарифа:</label>
                         <div>
                             <label for="picture" class="decoBtn">Загрузить фото</label>
@@ -36,7 +37,7 @@
                         <input type="file" id="picture" name="picture" required><br><br>
                     </div>
                     <div>
-                        <label for="feedback">Комментарии:</label><br>
+                        <label for="feedback" style="padding-top: 10px;">Комментарии:</label><br>
                         <textarea style="font-size: 19px;" id="feedback" name="feedback" required></textarea><br><br>
                     </div>
                     <button type="submit" id="submit">Отправить</button>
