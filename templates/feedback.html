@@ -33,9 +33,9 @@
                     <div id="mainContent">
                         <label>Скриншот подключенного Вам тарифа:</label>
                         <div>
-                            <label for="picture" class="decoBtn">Загрузить фото</label>
+                            <label for="picture" id="decoBtn">Загрузить фото</label>
                         </div>
-                        <input type="file" id="picture" name="picture" required><br><br>
+                        <input type="file" id="picture" name="picture" onchange="showFileName()"><br><br>
                     </div>
                     <div>
                         <label for="feedback" style="padding-top: 10px;">Комментарии о подключении:</label><br>
@@ -76,6 +76,18 @@
         function showReviews() {
             document.getElementById('form').classList.add('hidden');
             document.getElementById('reviews').classList.remove('hidden');
+        }
+
+        function showFileName() {
+            const fileInput = document.getElementById('picture');
+            const fileNameDisplay = document.getElementById('decoBtn');
+            
+            const file = fileInput.files[0];
+            if (file) {
+                fileNameDisplay.textContent = 'Фото загружено!';
+            } else {
+                fileNameDisplay.textContent = 'Загрузить фото';
+            }
         }
     </script>
 </body>
