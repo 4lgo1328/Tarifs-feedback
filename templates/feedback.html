@@ -23,7 +23,7 @@
             <div id="form" class="hidden">
                 <p class="instr">Здесь вы можете оставить свой отзыв, он будет виден остальным пользователям</p>
                 <form id="reviewForm" action="/feedback" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    {{ form.hidden_tag() }}
                     <div>
                         <label for="username">Ваше имя:</label>
                         <input type="text" id="username" name="username" required><br><br>
@@ -50,10 +50,12 @@
                 {% if reviews %}
                     <ul>
                         {% for review in reviews %}
-                            <li class='bullet'>
+                            <div class='bullet'>
                                 <strong class="review_name">{{ review[0] }}</strong>:<br>
                                 <p class="review_text">{{ review[1] }}</p>
-                            </li>
+                                <p>{{ review[2] }}</p>
+                                <img src={{ review[2] }} alt="alt">
+                            </div>
                         <br>
                         {% endfor %}
                     </ul>

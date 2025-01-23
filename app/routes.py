@@ -13,9 +13,10 @@ import sqlite3 as sql
 def init_routes(app, db):
     @app.route('/feedback', methods=['GET', "POST"])
     def upload():
+        form = FeedbackForm()
         reviews = get_all_reviews()
         if request.method == "POST":
-            form = FeedbackForm()
+
 
             if form.validate_on_submit():
 
@@ -49,7 +50,7 @@ def init_routes(app, db):
                 print(form.errors)
                 flash('Проверьте правильность ввода данных')
             return render_template('feedback.html', form=form, reviews=reviews)
-        return render_template('feedback.html', reviews=reviews)
+        return render_template('feedback.html', reviews=reviews, form=form)
 
     @app.errorhandler(404)
     def not_found(error):

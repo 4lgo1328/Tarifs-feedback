@@ -15,3 +15,7 @@ class Config:
 
 TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = 860597138
+SITE_PATH = 'instance/site.db'
+APPROVED_PATH = 'instance/approved.db'
+PATH_TO_UPLOADS = "../uploads/"
+# TODO: slash in the end of the path to uploads
