@@ -18,7 +18,7 @@
     max-width: 800px;
     background-color: rgb(59, 59, 59);
     padding-top: 20px;
-    height: 100vh;
+    height: 100%;
 }
 
 h1 {
@@ -103,10 +103,11 @@ label {
 }
 
 #feedback {
-    width: 400px;
-    height: 120px;
+    width: 200px;
+    height: 130px;
     min-width: 300px;
     min-height: 100px;
+    margin: auto;
 }
 
 #feedback::placeholder {
