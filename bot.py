@@ -21,13 +21,11 @@ def get_markup(UID):
 def send_feedback(UID, user_name, photo, feedback):
     photo_path = photo.split('\\')[-1]
     bot.send_photo(chat_id=str(config.ADMIN_ID),
-                   photo=open(f'uploads/{photo_path}', 'rb')) # TODO: remove "uploads/" before pushing
-    bot.send_message(chat_id=str(config.ADMIN_ID),
-                     text=f'Новый отзыв!\n'
-                          f'<u>Имя:</u> {user_name}\n'
-                          f'<u>Отзыв:</u> {feedback}\n',
-                     parse_mode='HTML',
-                     reply_markup=get_markup(UID))
+                   photo=open(f'static/uploads/{photo_path}', 'rb'), # TODO REMOVE UPLOADS
+                   caption=f'Новый отзыв!\n'
+                           f'<u>Имя:</u> {user_name}\n'
+                           f'<u>Отзыв:</u> {feedback}\n',
+                   reply_markup=get_markup(UID))
 
 
 def get_feedback(UID):

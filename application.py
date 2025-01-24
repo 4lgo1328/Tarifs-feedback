@@ -22,3 +22,4 @@ def run_app():
 
     app.run(debug=True, use_reloader=False)
 
+run_app()

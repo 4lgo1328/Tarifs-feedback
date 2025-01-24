@@ -34,7 +34,10 @@
                         <div>
                             <label for="picture" class="decoBtn">Загрузить фото</label>
                         </div>
-                        <input type="file" id="picture" name="picture" required><br><br>
+                        <input type="file" id="picture" name="picture" accept="image/*" required><br><br>
+                        <div id="preview" class="preview_image">
+                            <span>Выберите изображение</span>
+                        </div>
                     </div>
                     <div>
                         <label for="feedback" style="padding-top: 10px;">Комментарии о подключении:</label><br>
@@ -51,10 +54,9 @@
                     <ul>
                         {% for review in reviews %}
                             <div class='bullet'>
-                                <strong class="review_name">{{ review[0] }}</strong>:<br>
+                                <strong class="review_name">{{ review[0] }}</strong><br>
                                 <p class="review_text">{{ review[1] }}</p>
-                                <p>{{ review[2] }}</p>
-                                <img src = "{{ review[2] }}" alt="alt">
+                                <img src = "{{ review[2] }}" alt="Фото недоступно" class="review_photo" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', this.alt);">
                             </div>
                         <br>
                         {% endfor %}
@@ -76,6 +78,56 @@
             document.getElementById('form').classList.add('hidden');
             document.getElementById('reviews').classList.remove('hidden');
         }
+    </script>
+    <canvas id="canvas" style="display: none;"> </canvas>
+    <script>
+    const fileInput = document.getElementById('picture');
+    const previewDiv = document.getElementById('preview');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function() {
+                    const minSize = Math.min(img.width, img.height);
+
+                    // Set canvas size to a square
+                    canvas.width = canvas.height = minSize;
+
+                    // Crop and resize the image
+                    ctx.drawImage(
+                        img,
+                        (img.width - minSize) / 2,
+                        (img.height - minSize) / 2,
+                        minSize,
+                        minSize,
+                        0,
+                        0,
+                        minSize,
+                        minSize
+                    );
+
+                    // Convert canvas content to an image
+                    const resizedImage = canvas.toDataURL('image/jpeg');
+
+                    // Display the resized image in preview div
+                    previewDiv.innerHTML = `<img src="${resizedImage}" alt="Resized Image">`;
+                };
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            alert('Пожалуйста, загрузите корректное изображение.');
+        }
+    });
     </script>
 </body>
 </html>

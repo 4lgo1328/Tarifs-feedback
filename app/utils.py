@@ -17,7 +17,5 @@ def get_all_reviews():
     conn.close()
     # TODO: Add absolute path to photo to obj[2] - now it looks like <filename>.<ext>
     for obj in res:
-        print(obj)
         reviews.append([obj[0], obj[1], config.PATH_TO_UPLOADS + str(obj[2])])
-    print(reviews)
     return reviews[::-1]

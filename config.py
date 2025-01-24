@@ -6,7 +6,7 @@ class Config:
     SECRET_KEY = "secret-key"
     SESSION_TYPE = 'filesystem'
     DEBUG = os.getenv('FLASK_DEBUG', True)
-    UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static/uploads')
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     MAX_CONTENT_LENGTH = 15 * 1024 * 1024
     SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
@@ -18,6 +18,6 @@ TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = 860597138
 SITE_PATH = 'instance/site.db'
 APPROVED_PATH = 'instance/approved.db'
-PATH_TO_UPLOADS = "http://localhost/uploads/"
+PATH_TO_UPLOADS = "static/uploads/"
 # TODO: absolute path in the uploads
 # TODO MAKE SYSTEM SAVE FILE IN STATIC DIRECTORY
