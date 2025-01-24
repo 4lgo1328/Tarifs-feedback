@@ -105,6 +105,8 @@ label {
 #feedback {
     width: 400px;
     height: 120px;
+    min-width: 300px;
+    min-height: 100px;
 }
 
 #feedback::placeholder {
@@ -139,7 +141,7 @@ label {
     visibility: hidden;
 }
 
-.decoBtn {
+#decoBtn {
     transition: 0.25s all;
     margin-top: 40px;
     width: 300px;
@@ -147,7 +149,9 @@ label {
     text-decoration: underline;
 }
 
-.decoBtn:hover{
+
+
+#decoBtn:hover{
     cursor: pointer;
     background-color: #d9d9d92f;
     width: 700px;
